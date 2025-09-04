@@ -21,8 +21,8 @@ export default function WorkPage() {
               priority={index < 3}
             />
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white text-center px-8 transform transition-all duration-500 ease-out group-hover:scale-105 group-hover:-translate-y-2">
+            <div className="absolute bottom-8 left-8">
+              <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white transform transition-all duration-500 ease-out group-hover:scale-105 group-hover:-translate-y-2">
                 {project.client}
               </h2>
             </div>

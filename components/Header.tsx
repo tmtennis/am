@@ -81,48 +81,59 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               type="button"
-              className="md:hidden text-sm text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="md:hidden text-sm text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white transition-transform duration-200"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
             >
-              Menu
+              <span className={`transform transition-transform duration-200 ${mobileMenuOpen ? 'rotate-180' : ''}`}>
+                {mobileMenuOpen ? 'Close' : 'Menu'}
+              </span>
             </button>
           </div>
         </div>
+      </Container>
 
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && isVisible && (
-          <nav 
-            id="mobile-menu"
-            className="md:hidden py-4 border-t border-neutral-700"
-            style={{ backgroundColor: '#1a1919' }}
-          >
-            <div className="space-y-3">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`block text-sm transition-colors duration-150 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
-                    pathname === item.href 
-                      ? 'text-white' 
-                      : 'text-neutral-400'
-                  }`}
-                  aria-current={pathname === item.href ? 'page' : undefined}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="pt-2 border-t border-neutral-700">
-                <div className="font-extrabold text-white text-sm">
-                  SIZED
-                </div>
+      {/* Mobile Navigation - Full Width */}
+      <div
+        className={`md:hidden absolute left-0 right-0 top-16 backdrop-blur-sm transition-all duration-300 ease-in-out ${
+          mobileMenuOpen && isVisible
+            ? 'opacity-100 translate-y-0 visible'
+            : 'opacity-0 -translate-y-4 invisible'
+        }`}
+        style={{ backgroundColor: 'rgba(26, 25, 25, 0.95)' }}
+      >
+        <nav 
+          id="mobile-menu"
+          className="border-t border-neutral-700"
+        >
+          <div className="px-4 py-6 space-y-4">
+            {navigation.map((item, index) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`block text-lg font-medium transition-all duration-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white transform hover:translate-x-1 ${
+                  pathname === item.href 
+                    ? 'text-white' 
+                    : 'text-neutral-400'
+                }`}
+                style={{
+                  transitionDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms'
+                }}
+                aria-current={pathname === item.href ? 'page' : undefined}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+            <div className="pt-4 mt-4 border-t border-neutral-700">
+              <div className="font-extrabold text-white text-sm tracking-wider">
+                SIZED
               </div>
             </div>
-          </nav>
-        )}
-      </Container>
+          </div>
+        </nav>
+      </div>
     </header>
   );
 }

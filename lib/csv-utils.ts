@@ -39,18 +39,67 @@ export async function readCSV(filename: string): Promise<any[]> {
     const csvPath = path.join(process.cwd(), 'data/csv', filename);
     const csvContent = fs.readFileSync(csvPath, 'utf-8');
     
-    // Robust CSV parser that handles quoted fields with commas
-    const lines = csvContent.split('\n').filter(line => line.trim());
-    const headers = parseCSVLine(lines[0]);
+    // More robust CSV parser that handles multiline quoted fields
+    const records: any[] = [];
+    let currentRecord: string[] = [];
+    let currentField = '';
+    let inQuotes = false;
+    let isFirstRow = true;
+    let headers: string[] = [];
     
-    const records = lines.slice(1).map(line => {
-      const values = parseCSVLine(line);
-      const record: any = {};
-      headers.forEach((header: string, index: number) => {
-        record[header] = values[index] || '';
-      });
-      return record;
-    });
+    for (let i = 0; i < csvContent.length; i++) {
+      const char = csvContent[i];
+      const nextChar = csvContent[i + 1];
+      
+      if (char === '"') {
+        if (inQuotes && nextChar === '"') {
+          // Escaped quote
+          currentField += '"';
+          i++; // Skip next quote
+        } else {
+          // Start or end of quoted field
+          inQuotes = !inQuotes;
+        }
+      } else if (char === ',' && !inQuotes) {
+        // Field separator
+        currentRecord.push(currentField.trim());
+        currentField = '';
+      } else if ((char === '\n' || char === '\r') && !inQuotes) {
+        // End of record
+        if (currentField || currentRecord.length > 0) {
+          currentRecord.push(currentField.trim());
+          
+          if (isFirstRow) {
+            headers = currentRecord.map(h => h.replace(/\r$/, ''));
+            isFirstRow = false;
+          } else if (currentRecord.some(field => field.trim())) {
+            // Only add non-empty records
+            const record: any = {};
+            headers.forEach((header: string, index: number) => {
+              record[header] = currentRecord[index] || '';
+            });
+            records.push(record);
+          }
+          
+          currentRecord = [];
+          currentField = '';
+        }
+      } else {
+        currentField += char;
+      }
+    }
+    
+    // Handle last record if file doesn't end with newline
+    if (currentField || currentRecord.length > 0) {
+      currentRecord.push(currentField.trim());
+      if (!isFirstRow && currentRecord.some(field => field.trim())) {
+        const record: any = {};
+        headers.forEach((header: string, index: number) => {
+          record[header] = currentRecord[index] || '';
+        });
+        records.push(record);
+      }
+    }
     
     return records;
   } catch (error) {
