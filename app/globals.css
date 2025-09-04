@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply leading-relaxed;
+  }
+  
+  body {
+    background-color: #1a1919;
+  }
+  
+  h1 {
+    @apply text-5xl md:text-7xl font-medium;
+  }
+  
+  h2 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h3 {
+    @apply text-lg font-medium;
+  }
+}
+
+@layer components {
+  .prose {
+    @apply max-w-prose leading-relaxed;
+  }
+  
+  .prose p {
+    @apply mb-4;
+  }
+  
+  .prose p:last-child {
+    @apply mb-0;
+  }
+  
+  .label {
+    @apply uppercase tracking-[.15em] text-sm;
+  }
+  
+  .label-wide {
+    @apply uppercase tracking-[.2em] text-sm;
+  }
+}

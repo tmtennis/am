@@ -1,0 +1,7 @@
+# Example CSV file structure
+# This is a template for project data
+
+id,title,client,year,category,status,description
+1,"Nordic Knot Identity","NORDIC KNOT",2025,"Brand Identity","Completed","Comprehensive brand identity for Scandinavian design collective"
+2,"Pierre Augustinus Rose Portfolio","PIERRE AUGUSTINUS ROSE",2024,"Digital Design","Completed","Architectural portfolio and digital presence"
+3,"Meridian Gallery Wayfinding","MERIDIAN GALLERY",2024,"Spatial Design","In Progress","Exhibition design and wayfinding system"
