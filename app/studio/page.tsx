@@ -1,5 +1,6 @@
 import Container from '@/components/Container';
 import SectionHeading from '@/components/SectionHeading';
+import ScrollFadeMap from '@/components/ScrollFadeMap';
 import { readCSV } from '@/lib/csv-utils';
 
 interface PressEntry {
@@ -72,8 +73,9 @@ export default async function StudioPage() {
   const pressData = await loadPressData();
 
   return (
-    <Container>
-      <div className="py-16 md:py-24 space-y-16">
+    <ScrollFadeMap>
+      <Container>
+        <div className="relative z-10 py-16 md:py-24 space-y-16">
         <section>
           <div className="space-y-4">
             <h1 className="text-xl font-extrabold">ALEXANDER MAY STUDIO</h1>
@@ -109,9 +111,9 @@ export default async function StudioPage() {
               <div className="mt-6">
                 <h2 className="text-xl font-extrabold mb-2">CLIENTS</h2>
                 <p>
-                  Alexander May Studio collaborates with leading figures and institutions across design, fashion, art, and architecture. Clients include Rick Owens, Dries 
-                  Van Noten, Frieze, Carpenters Workshop Gallery, SKIMS, Design Miami, Bocci, Art Basel, USM Modular Furniture, SSENSE, ZARA, Edition Hotels, 
-                  Lemaire, Pierre Augustin Rose, NM3, Inez & Vinoodh, North Six, Locatelli Partners, PIN–UP, Proper Hospitality, among others. Each partnership is 
+                  Alexander May Studio collaborates with leading figures and institutions across design, fashion, art, and architecture. Clients include <span className="font-extrabold">Rick Owens</span>, <span className="font-extrabold">Dries 
+                  Van Noten</span>, <span className="font-extrabold">Frieze</span>, <span className="font-extrabold">Carpenters Workshop Gallery</span>, <span className="font-extrabold">SKIMS</span>, <span className="font-extrabold">Design Miami</span>, <span className="font-extrabold">Bocci</span>, <span className="font-extrabold">Art Basel</span>, <span className="font-extrabold">USM Modular Furniture</span>, <span className="font-extrabold">SSENSE</span>, <span className="font-extrabold">ZARA</span>, <span className="font-extrabold">Edition Hotels</span>, 
+                  <span className="font-extrabold">Lemaire</span>, <span className="font-extrabold">Pierre Augustin Rose</span>, <span className="font-extrabold">NM3</span>, <span className="font-extrabold">Inez & Vinoodh</span>, <span className="font-extrabold">North Six</span>, <span className="font-extrabold">Locatelli Partners</span>, <span className="font-extrabold">PIN–UP</span>, <span className="font-extrabold">Proper Hospitality</span>, among others. Each partnership is 
                   approached with the same discipline: to create work of structural clarity and lasting resonance, regardless of scale or medium.
                 </p>
               </div>
@@ -127,10 +129,10 @@ export default async function StudioPage() {
                 <h3 className="text-sm font-medium text-neutral-400 mb-2">{yearGroup.year}</h3>
                 <div className="space-y-1">
                   {yearGroup.entries.map((entry, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 py-1">
+                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 py-1 border-b border-neutral-200">
                       <div className="flex-1">
                         <span className="text-sm font-medium">{entry.outlet}</span>
-                        <span className="text-sm text-neutral-600 ml-2">{entry.title}</span>
+                        <span className="text-sm text-neutral-400 ml-2">{entry.title}</span>
                       </div>
                       <span className="text-xs text-neutral-400 sm:text-right">{entry.month}</span>
                     </div>
@@ -140,7 +142,8 @@ export default async function StudioPage() {
             ))}
           </div>
         </section>
-      </div>
-    </Container>
+        </div>
+      </Container>
+    </ScrollFadeMap>
   );
 }

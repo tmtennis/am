@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from './Container';
 
 const navigation = [
@@ -15,9 +15,36 @@ const navigation = [
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Scrolling down & past initial scroll threshold
+        setIsVisible(false);
+        setMobileMenuOpen(false); // Close mobile menu when header hides
+      } else {
+        // Scrolling up or at top
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', controlNavbar, { passive: true });
+    return () => window.removeEventListener('scroll', controlNavbar);
+  }, [lastScrollY]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-neutral-700 h-16" style={{ backgroundColor: '#1a1919' }}>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 border-b border-neutral-700 h-16 transition-transform duration-300 ease-in-out ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`} 
+      style={{ backgroundColor: '#1a1919' }}
+    >
       <Container>
         <div className="flex items-center justify-between h-16">
           <Link 
@@ -65,7 +92,7 @@ export default function Header() {
         </div>
 
         {/* Mobile Navigation */}
-        {mobileMenuOpen && (
+        {mobileMenuOpen && isVisible && (
           <nav 
             id="mobile-menu"
             className="md:hidden py-4 border-t border-neutral-700"
