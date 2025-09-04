@@ -4,7 +4,6 @@ import Container from './Container';
 const navigation = [
   { name: 'Studio', href: '/studio' },
   { name: 'Work', href: '/work' },
-  { name: 'Works', href: '/works' },
   { name: 'Practice', href: '/practice' },
   { name: 'Contact', href: '/contact' },
 ];
