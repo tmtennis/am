@@ -1,8 +1,40 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { projects } from '@/data/projects';
+import { useEffect, useRef, useState } from 'react';
 
 export default function WorkPage() {
+  const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set([0]));
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = parseInt(entry.target.getAttribute('data-index') || '0');
+          if (entry.isIntersecting) {
+            setVisibleSections(prev => new Set([...prev, index]));
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: '0px'
+      }
+    );
+
+    const sections = document.querySelectorAll('.work-section');
+    sections.forEach((section) => {
+      observerRef.current?.observe(section);
+    });
+
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, []);
+
   return (
     <div className="work-scroller pt-16 h-screen overflow-y-scroll">
       {projects.map((project, index) => (
@@ -10,19 +42,22 @@ export default function WorkPage() {
           key={project.slug} 
           href={`/work/${project.slug}`} 
           className="work-section group block h-screen w-full"
+          data-index={index}
         >
           <div className="relative h-full w-full overflow-hidden bg-neutral-100">
             <Image
               src={project.image}
               alt={project.client}
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              className="object-cover"
               sizes="100vw"
               priority={index < 3}
             />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500" />
-            <div className="absolute bottom-8 left-8">
-              <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white transform transition-all duration-500 ease-out group-hover:scale-105 group-hover:-translate-y-2">
+            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute bottom-16 sm:bottom-8 left-4 sm:left-8">
+              <h2 className={`text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white transform transition-transform duration-1000 ease-out ${
+                visibleSections.has(index) ? 'translate-x-0' : '-translate-x-full'
+              }`}>
                 {project.client}
               </h2>
             </div>
