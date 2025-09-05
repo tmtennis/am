@@ -36,7 +36,7 @@ export default function WorkPage() {
   }, []);
 
   return (
-    <div className="work-scroller pt-16">
+    <div className="work-scroller">
       {projects.map((project, index) => (
         <Link 
           key={project.slug} 
