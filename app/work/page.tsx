@@ -36,7 +36,7 @@ export default function WorkPage() {
   }, []);
 
   return (
-    <div className="work-scroller pt-16 h-screen overflow-y-scroll">
+    <div className="work-scroller pt-16">
       {projects.map((project, index) => (
         <Link 
           key={project.slug} 
@@ -54,12 +54,17 @@ export default function WorkPage() {
               priority={index < 3}
             />
             <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute bottom-16 sm:bottom-8 left-4 sm:left-8">
-              <h2 className={`text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white transform transition-transform duration-1000 ease-out ${
+            <div className="absolute top-6 left-6 right-6 md:top-8 md:left-8 md:right-auto max-w-2xl">
+              <h2 className={`text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white mb-3 md:mb-4 transform transition-transform duration-1000 ease-out ${
                 visibleSections.has(index) ? 'translate-x-0' : '-translate-x-full'
               }`}>
                 {project.client}
               </h2>
+              <p className={`text-xs md:text-sm lg:text-base text-white/90 leading-relaxed transform transition-all duration-1000 ease-out delay-200 ${
+                visibleSections.has(index) ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
+              }`}>
+                {project.description.split('\n\n')[0]}
+              </p>
             </div>
             
             {/* Project indicator */}

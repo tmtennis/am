@@ -1,6 +1,5 @@
 import Container from '@/components/Container';
 import SectionHeading from '@/components/SectionHeading';
-import ScrollFadeMap from '@/components/ScrollFadeMap';
 import { readCSV } from '@/lib/csv-utils';
 
 interface PressEntry {
@@ -73,9 +72,8 @@ export default async function StudioPage() {
   const pressData = await loadPressData();
 
   return (
-    <ScrollFadeMap>
-      <Container>
-        <div className="relative z-10 py-16 md:py-24 space-y-16">
+    <Container>
+      <div className="relative z-10 py-16 md:py-24 space-y-16">
         <section>
           <div className="space-y-4">
             <h1 className="text-xl font-extrabold">ALEXANDER MAY STUDIO</h1>
@@ -122,19 +120,28 @@ export default async function StudioPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-extrabold mb-4">PRESS</h2>
-          <div className="space-y-4">
-            {pressData.map((yearGroup: PressYear) => (
-              <div key={yearGroup.year}>
-                <h3 className="text-sm font-medium text-neutral-400 mb-2">{yearGroup.year}</h3>
-                <div className="space-y-1">
+          <h2 className="text-xl font-extrabold mb-6">PRESS</h2>
+          <div className="space-y-6">
+            {pressData.map((yearGroup: PressYear, yearIndex) => (
+              <div key={yearGroup.year} className={yearIndex > 0 ? "mt-8" : ""}>
+                <h3 className="text-lg font-extrabold mb-4">{yearGroup.year}</h3>
+                <div className="space-y-3">
                   {yearGroup.entries.map((entry, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 py-1 border-b border-neutral-200">
-                      <div className="flex-1">
-                        <span className="text-sm font-medium">{entry.outlet}</span>
-                        <span className="text-sm text-neutral-400 ml-2">{entry.title}</span>
+                    <div key={index} className="flex flex-col md:grid md:grid-cols-12 md:gap-4 gap-1">
+                      {/* Publication name - bold, left aligned */}
+                      <div className="md:col-span-3">
+                        <span className="text-sm font-bold">{entry.outlet}</span>
                       </div>
-                      <span className="text-xs text-neutral-400 sm:text-right">{entry.month}</span>
+                      
+                      {/* Article title - regular weight, middle */}
+                      <div className="md:col-span-7">
+                        <span className="text-sm text-neutral-300">{entry.title}</span>
+                      </div>
+                      
+                      {/* Month - right aligned, lighter */}
+                      <div className="md:col-span-2 md:text-right">
+                        <span className="text-xs text-neutral-400 uppercase tracking-wide">{entry.month}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -144,6 +151,5 @@ export default async function StudioPage() {
         </section>
         </div>
       </Container>
-    </ScrollFadeMap>
   );
 }

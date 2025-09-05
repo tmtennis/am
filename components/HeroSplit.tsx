@@ -40,6 +40,11 @@ export default function HeroSplit({ left, right, className = "" }: Props) {
 
   return (
     <section className={`relative w-full ${className}`}>
+      {/* Tagline */}
+      <div className="mb-1 text-white text-xs font-light text-left">
+        Form held by clarity, freed by imagination
+      </div>
+      
       {/* Date stamp above images, left aligned */}
       <div className="mb-2 text-[9px] tracking-widest text-neutral-400 text-left">
         {nyDate}
@@ -51,7 +56,7 @@ export default function HeroSplit({ left, right, className = "" }: Props) {
       </div>
 
       {/* Studio description below images */}
-      <div className="mt-2 space-y-0">
+      <div className="mt-5 space-y-2">
         <h2 className="font-extrabold text-white text-lg tracking-wide">
           ALEXANDER MAY STUDIO
         </h2>
@@ -67,7 +72,7 @@ export default function HeroSplit({ left, right, className = "" }: Props) {
             src="/images/hero/hero-3.png"
             alt="Alexander May Studio Work"
             fill
-            className="object-cover transition-all duration-300 ease-out brightness-[0.65] opacity-75 hover:brightness-100 hover:opacity-100"
+            className="object-cover transition-all duration-300 ease-out brightness-[0.4] opacity-60 hover:brightness-100 hover:opacity-100"
             sizes="100vw"
           />
         </div>
@@ -97,7 +102,7 @@ function Tile({
           alt={alt}
           fill
           priority
-          className="object-cover transition-all duration-300 ease-out brightness-[0.65] opacity-75 group-hover:brightness-100 group-hover:opacity-100 group-focus-visible:brightness-100 group-focus-visible:opacity-100"
+          className="object-cover transition-all duration-300 ease-out brightness-[0.4] opacity-60 group-hover:brightness-100 group-hover:opacity-100 group-focus-visible:brightness-100 group-focus-visible:opacity-100"
           sizes="(min-width: 768px) 50vw, 100vw"
         />
       </div>

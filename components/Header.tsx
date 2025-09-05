@@ -45,54 +45,54 @@ export default function Header() {
       }`} 
       style={{ backgroundColor: '#1a1919' }}
     >
-      <Container>
-        <div className="flex items-center justify-between h-16">
-          <Link 
-            href="/" 
-            className="font-extrabold text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-          >
-            ALEXANDER MAY
-          </Link>
-          
-          <div className="flex items-center space-x-8">
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`text-sm transition-colors duration-150 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
-                    pathname === item.href 
-                      ? 'text-white' 
-                      : 'text-neutral-400'
-                  }`}
-                  aria-current={pathname === item.href ? 'page' : undefined}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+      <div className="relative h-16">
+        {/* ALEXANDER MAY - Absolutely positioned to far left */}
+        <Link 
+          href="/" 
+          className="absolute left-4 top-1/2 -translate-y-1/2 font-extrabold text-white text-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white z-10"
+        >
+          ALEXANDER MAY
+        </Link>
+        
+        {/* Navigation - Absolutely positioned to far right */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-8">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-8">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`text-sm transition-colors duration-150 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+                  pathname === item.href 
+                    ? 'text-white' 
+                    : 'text-neutral-400'
+                }`}
+                aria-current={pathname === item.href ? 'page' : undefined}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
 
-            {/* SIZED Brand */}
-            <div className="hidden md:block font-extrabold text-white text-sm">
-              SIZED
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              className="md:hidden text-sm text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white transition-transform duration-200"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              <span className={`transform transition-transform duration-200 ${mobileMenuOpen ? 'rotate-180' : ''}`}>
-                {mobileMenuOpen ? 'Close' : 'Menu'}
-              </span>
-            </button>
+          {/* SIZED Brand */}
+          <div className="hidden md:block font-extrabold text-white text-sm">
+            SIZED
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            type="button"
+            className="md:hidden text-sm text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white transition-transform duration-200"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+          >
+            <span className={`transform transition-transform duration-200 ${mobileMenuOpen ? 'rotate-180' : ''}`}>
+              {mobileMenuOpen ? 'Close' : 'Menu'}
+            </span>
+          </button>
         </div>
-      </Container>
+      </div>
 
       {/* Mobile Navigation - Full Width */}
       <div

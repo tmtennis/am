@@ -10,9 +10,9 @@ const navigation = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-neutral-700 py-1 mt-16">
-      <Container>
-        <div className="space-y-0">
+    <footer className="py-1 mt-16">
+      <div className="pl-4">
+        <div className="space-y-1">
           {navigation.map((item) => (
             <Link
               key={item.name}
@@ -24,11 +24,11 @@ export default function Footer() {
           ))}
         </div>
         <div className="mt-2">
-          <p className="text-sm text-neutral-400">
+          <p className="text-xs text-neutral-400">
             © ALEXANDER MAY STUDIO MMXXV. ALL RIGHTS RESERVED.
           </p>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 }
