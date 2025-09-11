@@ -9,14 +9,21 @@ import path from 'path';
 // Function to get available gallery images for a project
 function getProjectGalleryImages(slug: string): string[] {
   const galleryPath = path.join(process.cwd(), 'public/images/work/gallery-folders', slug);
-  const availableImages: string[] = [];
   
   try {
     if (fs.existsSync(galleryPath)) {
       const files = fs.readdirSync(galleryPath);
-      // Filter for image files and sort them
+      // Filter for image files, exclude .DS_Store and other system files, then sort
       const imageFiles = files
-        .filter(file => file.toLowerCase().endsWith('.png') || file.toLowerCase().endsWith('.jpg') || file.toLowerCase().endsWith('.jpeg'))
+        .filter(file => {
+          const lowercaseFile = file.toLowerCase();
+          return (lowercaseFile.endsWith('.png') || 
+                  lowercaseFile.endsWith('.jpg') || 
+                  lowercaseFile.endsWith('.jpeg') || 
+                  lowercaseFile.endsWith('.webp')) && 
+                 !file.startsWith('.') && 
+                 file !== '.DS_Store';
+        })
         .sort();
       
       return imageFiles;
@@ -25,7 +32,7 @@ function getProjectGalleryImages(slug: string): string[] {
     console.error(`Error reading gallery images for ${slug}:`, error);
   }
   
-  return availableImages;
+  return [];
 }
 
 export async function generateStaticParams() {
@@ -75,63 +82,61 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         />
       </div>
 
-      <Container>
-        <div className="py-16 md:py-24">
-          {/* Gallery Section */}
-          {galleryImages.length > 0 && (
-            <div className="mb-20 md:mb-24 space-y-4">
-              {galleryImages.length === 1 && (
-                <div className="max-w-5xl mx-auto">
-                  <Image
-                    src={`/images/work/gallery-folders/${slug}/${galleryImages[0]}`}
-                    alt={`${project.client} 1`}
-                    width={1920}
-                    height={1080}
-                    className="w-full h-auto"
-                    sizes="100vw"
-                  />
-                </div>
-              )}
+      {/* Gallery Section - Full Width */}
+      {galleryImages.length > 0 && (
+        <div className="bg-black space-y-4 py-16 md:py-24">
+          {galleryImages.length === 1 && (
+            <Image
+              src={`/images/work/gallery-folders/${slug}/${galleryImages[0]}`}
+              alt={`${project.client} 1`}
+              width={1920}
+              height={1080}
+              className="w-full h-auto"
+              sizes="100vw"
+            />
+          )}
 
-              {galleryImages.length === 2 && (
-                <div className="space-y-4">
-                  <Image
-                    src={`/images/work/gallery-folders/${slug}/${galleryImages[0]}`}
-                    alt={`${project.client} 1`}
-                    width={1920}
-                    height={1080}
-                    className="w-full h-auto"
-                    sizes="100vw"
-                  />
-                  <Image
-                    src={`/images/work/gallery-folders/${slug}/${galleryImages[1]}`}
-                    alt={`${project.client} 2`}
-                    width={1920}
-                    height={1080}
-                    className="w-full h-auto"
-                    sizes="100vw"
-                  />
-                </div>
-              )}
-
-              {galleryImages.length >= 3 && (
-                <div className="space-y-4">
-                  {galleryImages.map((imageName, index) => (
-                    <Image
-                      key={index}
-                      src={`/images/work/gallery-folders/${slug}/${imageName}`}
-                      alt={`${project.client} ${index + 1}`}
-                      width={1920}
-                      height={1080}
-                      className="w-full h-auto"
-                      sizes="100vw"
-                    />
-                  ))}
-                </div>
-              )}
+          {galleryImages.length === 2 && (
+            <div className="space-y-4">
+              <Image
+                src={`/images/work/gallery-folders/${slug}/${galleryImages[0]}`}
+                alt={`${project.client} 1`}
+                width={1920}
+                height={1080}
+                className="w-full h-auto"
+                sizes="100vw"
+              />
+              <Image
+                src={`/images/work/gallery-folders/${slug}/${galleryImages[1]}`}
+                alt={`${project.client} 2`}
+                width={1920}
+                height={1080}
+                className="w-full h-auto"
+                sizes="100vw"
+              />
             </div>
           )}
 
+          {galleryImages.length >= 3 && (
+            <div className="space-y-4">
+              {galleryImages.map((imageName, index) => (
+                <Image
+                  key={index}
+                  src={`/images/work/gallery-folders/${slug}/${imageName}`}
+                  alt={`${project.client} ${index + 1}`}
+                  width={1920}
+                  height={1080}
+                  className="w-full h-auto"
+                  sizes="100vw"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <Container>
+        <div className="py-16 md:py-24">
           {/* Navigation */}
           <div className="pt-20 border-t border-neutral-700">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

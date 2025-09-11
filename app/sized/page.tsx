@@ -92,6 +92,20 @@ export default function SizedPage() {
                   )
                 )}
               </p>
+              
+              {/* SIZED link */}
+              <div className="mt-6">
+                <a 
+                  href="https://www.sized.ltd/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`text-white font-black text-[10px] sm:text-xs md:text-sm underline hover:opacity-70 transition-opacity duration-200 ${
+                    showOtherText ? 'opacity-100' : 'opacity-0'
+                  } transition-opacity duration-700 ease-out`}
+                >
+                  SIZED
+                </a>
+              </div>
             </div>
           </div>
         </Container>
