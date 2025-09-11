@@ -22,25 +22,12 @@ export default function WorkPage() {
   const [loading, setLoading] = useState(true);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Fetch projects from API
   useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const response = await fetch('/api/projects');
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data);
-        } else {
-          console.error('Failed to fetch projects');
-        }
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchProjects();
+    fetch('/api/projects')
+      .then(res => res.ok ? res.json() : Promise.reject('Failed to fetch projects'))
+      .then(setProjects)
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {

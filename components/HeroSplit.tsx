@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 
 type Item = {
   href: string;
-  src: string;          // public path, e.g. "/images/hero/hero-1.png"
+  src: string;
   alt: string;
-  label: string;        // client name, e.g. "NORDIC KNOT"
+  label: string;
 };
 
 type Props = {
@@ -22,108 +22,59 @@ export default function HeroSplit({ left, right, bottom, className = "" }: Props
   const [nyDate, setNyDate] = useState<string>("");
 
   useEffect(() => {
-    const updateNYTime = () => {
-      const now = new Date();
-      const nyTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
-      const formattedDate = nyTime.toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric'
-      }).replace(/\//g, '.');
-      setNyDate(`NEW YORK ${formattedDate}`);
+    const updateTime = () => {
+      const nyTime = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+      setNyDate(`NEW YORK ${nyTime.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).replace(/\//g, '.')}`);
     };
-
-    updateNYTime();
-    const interval = setInterval(updateNYTime, 60000); // Update every minute
-
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <section className={`relative w-full ${className}`}>
-      {/* Tagline */}
-      <div className="mb-1 text-white text-xs font-light text-left">
-        Form held by clarity, freed by imagination
-      </div>
-      
-      {/* Date stamp above images, left aligned */}
-      <div className="mb-2 text-[9px] tracking-widest text-neutral-400 text-left">
-        {nyDate}
-      </div>
+      <div className="mb-1 text-white text-xs font-light">Form held by clarity, freed by imagination</div>
+      <div className="mb-2 text-[9px] tracking-widest text-neutral-400">{nyDate}</div>
 
       <div className="grid grid-cols-1 gap-0 md:grid-cols-2 min-h-[80vh] md:min-h-[85vh]">
-        <Tile {...left} side="left" />
-        <Tile {...right} side="right" />
+        <HeroTile {...left} side="left" />
+        <HeroTile {...right} side="right" />
       </div>
 
-      {/* Studio description below images */}
       <div className="mt-12 mb-12 md:mt-16 md:mb-16 lg:mt-20 lg:mb-20 space-y-2">
-        <h2 className="font-extrabold text-white text-lg tracking-wide">
-          ALEXANDER MAY STUDIO
-        </h2>
+        <h2 className="font-extrabold text-white text-lg tracking-wide">ALEXANDER MAY STUDIO</h2>
         <p className="text-neutral-300 text-sm leading-relaxed max-w-1xl">
           works across creative direction, spatial design, and curation, shaping environments and narratives with precision and imagination.
         </p>
       </div>
 
-      {/* Bottom hero image with title and link */}
-      {bottom && (
-        <div className="w-full">
-          <Link
-            href={bottom.href}
-            className="group relative block outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-          >
-            <div className="relative w-full aspect-[16/9] overflow-hidden bg-neutral-900">
-              <Image
-                src={bottom.src}
-                alt={bottom.alt}
-                fill
-                className="object-cover transition-all duration-300 ease-out brightness-[0.4] opacity-60 group-hover:brightness-100 group-hover:opacity-100 group-focus-visible:brightness-100 group-focus-visible:opacity-100"
-                sizes="100vw"
-              />
-            </div>
-            {/* bottom-left label */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-6 px-6">
-              <span className="inline-block bg-transparent text-[11px] font-semibold uppercase tracking-widest text-neutral-200 transition-colors duration-200 group-hover:text-white group-focus-visible:text-white">
-                {bottom.label}
-              </span>
-            </div>
-          </Link>
-        </div>
-      )}
+      {bottom && <HeroTile {...bottom} />}
     </section>
   );
 }
 
-function Tile({
-  href,
-  src,
-  alt,
-  label,
-  side,
-}: Item & { side: "left" | "right" }) {
+function HeroTile({ href, src, alt, label, side }: Item & { side?: "left" | "right" }) {
+  const isFullWidth = !side;
+  
   return (
     <Link
       href={href}
-      className={`group relative block outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white h-full ${
-        side === "left" ? "md:border-r md:border-neutral-800" : ""
+      className={`group relative block outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+        isFullWidth ? "w-full" : `h-full ${side === "left" ? "md:border-r md:border-neutral-800" : ""}`
       }`}
     >
-      {/* image wrapper fills entire tile */}
-      <div className="relative w-full h-full overflow-hidden bg-neutral-900">
+      <div className={`relative w-full overflow-hidden bg-neutral-900 ${isFullWidth ? "aspect-[16/9]" : "h-full"}`}>
         <Image
           src={src}
           alt={alt}
           fill
-          priority
+          priority={!isFullWidth}
           className="object-cover transition-all duration-300 ease-out brightness-[0.4] opacity-60 group-hover:brightness-100 group-hover:opacity-100 group-focus-visible:brightness-100 group-focus-visible:opacity-100"
-          sizes="(min-width: 768px) 50vw, 100vw"
+          sizes={isFullWidth ? "100vw" : "(min-width: 768px) 50vw, 100vw"}
         />
       </div>
-
-      {/* bottom-left label */}
       <div className="pointer-events-none absolute inset-x-0 bottom-6 px-6">
-        <span className="inline-block bg-transparent text-[11px] font-semibold uppercase tracking-widest text-neutral-200 transition-colors duration-200 group-hover:text-white group-focus-visible:text-white">
+        <span className="inline-block text-[11px] font-semibold uppercase tracking-widest text-neutral-200 transition-colors duration-200 group-hover:text-white group-focus-visible:text-white">
           {label}
         </span>
       </div>

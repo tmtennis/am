@@ -1,33 +1,5 @@
-// CSV utility functions for reading and parsing CSV data
 import fs from 'fs';
 import path from 'path';
-
-/**
- * Parse a CSV line handling quoted fields with commas
- * @param line - CSV line to parse
- * @returns string[] - Array of field values
- */
-function parseCSVLine(line: string): string[] {
-  const result: string[] = [];
-  let current = '';
-  let inQuotes = false;
-  
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-    
-    if (char === '"') {
-      inQuotes = !inQuotes;
-    } else if (char === ',' && !inQuotes) {
-      result.push(current.trim());
-      current = '';
-    } else {
-      current += char;
-    }
-  }
-  
-  result.push(current.trim());
-  return result;
-}
 
 /**
  * Read and parse a CSV file from the data/csv directory

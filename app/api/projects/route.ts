@@ -12,29 +12,14 @@ export interface ProjectData {
   image: string;
 }
 
-// Helper function to generate slug from client name
 function generateSlug(client: string): string {
-  // Handle special case for DIAGEO -> diaego to match image filename
-  if (client.toUpperCase() === 'DIAGEO') {
-    return 'diaego';
-  }
-  
-  return client
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
+  if (client.toUpperCase() === 'DIAGEO') return 'diaego';
+  return client.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
 }
 
-// Helper function to extract a short summary from the description
 function extractSummary(description: string): string {
-  // Take the first sentence or up to 100 characters
   const firstSentence = description.split('.')[0];
-  if (firstSentence.length > 100) {
-    return firstSentence.substring(0, 97) + '...';
-  }
-  return firstSentence;
+  return firstSentence.length > 100 ? firstSentence.substring(0, 97) + '...' : firstSentence;
 }
 
 // Predefined years for each project (since CSV doesn't include years)

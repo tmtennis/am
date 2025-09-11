@@ -23,30 +23,17 @@ export default function StudioPage() {
 
   useEffect(() => {
     fetch('/api/press')
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then(data => {
-        console.log('Press data received:', data);
-        setPressData(data);
-      })
+      .then(res => res.ok ? res.json() : Promise.reject(`HTTP error! status: ${res.status}`))
+      .then(setPressData)
       .catch(err => {
         console.error('Error fetching press data:', err);
-        // Fallback data for testing
         setPressData([]);
       });
   }, []);
 
   return (
     <Container>
-      <motion.div 
-        className="relative z-10 py-16 md:py-24 space-y-16"
-        style={{ y, opacity }}
-      >
-        {/* Page intro */}
+      <motion.div className="relative z-10 py-16 md:py-24 space-y-16" style={{ y, opacity }}>
         <motion.div 
           className="mb-20 md:mb-24"
           initial={{ opacity: 0, y: 30 }}
@@ -72,27 +59,19 @@ export default function StudioPage() {
             viewport={{ once: true }}
           >
             <p className="text-base leading-relaxed">
-              Defined by a precise and architectural approach to design. Founded by Alexander May, the studio operates at the meeting point of space, object, and 
-              image, where every project is treated as a structure, measured, intentional, and complete.
+              Defined by a precise and architectural approach to design. Founded by Alexander May, the studio operates at the meeting point of space, object, and image, where every project is treated as a structure, measured, intentional, and complete.
             </p>
-            
             <p className="text-sm leading-relaxed text-neutral-300">
-              May's career has been shaped by an insistence on clarity and proportion. His work ranges from interiors and exhibitions to furniture and curatorial 
-              projects, always returning to the same principles: a disciplined use of material, a deep engagement with scale, and a refusal of excess.
+              May's career has been shaped by an insistence on clarity and proportion. His work ranges from interiors and exhibitions to furniture and curatorial projects, always returning to the same principles: a disciplined use of material, a deep engagement with scale, and a refusal of excess.
             </p>
-            
             <p className="text-sm leading-relaxed text-neutral-300">
               The studio's ethos is rooted in authorship. Projects are not styled but built, approached with the rigour of architecture and the sensibility of art.
             </p>
-            
             <p className="text-sm leading-relaxed text-neutral-300">
-              Light, surface, and proportion are not secondary concerns but the foundations of meaning. The results are environments and objects that stand with quiet 
-              authority, at once minimal and resonant.
+              Light, surface, and proportion are not secondary concerns but the foundations of meaning. The results are environments and objects that stand with quiet authority, at once minimal and resonant.
             </p>
-            
             <p className="text-sm leading-relaxed text-neutral-300">
-              Alexander May Studio works across disciplines yet maintains a singular vision: to create forms that are exact, enduring, and unembellished, where 
-              nothing is arbitrary and every decision carries weight.
+              Alexander May Studio works across disciplines yet maintains a singular vision: to create forms that are exact, enduring, and unembellished, where nothing is arbitrary and every decision carries weight.
             </p>
           </motion.div>
         </motion.div>

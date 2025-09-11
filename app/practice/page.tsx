@@ -37,13 +37,11 @@ export default function PracticePage() {
   return (
     <Container>
       <div className="py-16 md:py-24">
-        {/* Page intro */}
         <div className="mb-20 md:mb-28">
           <h1 className="text-xl font-extrabold mb-6">PRACTICE</h1>
           <div className="max-w-3xl">
             <p className="text-lg text-neutral-300 leading-relaxed">
-              Alexander May Studio operates through three core practices that intersect and inform one another. 
-              Each discipline maintains its own methodology while contributing to a unified approach to design and culture.
+              Alexander May Studio operates through three core practices that intersect and inform one another. Each discipline maintains its own methodology while contributing to a unified approach to design and culture.
             </p>
           </div>
         </div>
