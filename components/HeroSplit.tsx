@@ -14,10 +14,11 @@ type Item = {
 type Props = {
   left: Item;
   right: Item;
+  bottom?: Item;
   className?: string;
 };
 
-export default function HeroSplit({ left, right, className = "" }: Props) {
+export default function HeroSplit({ left, right, bottom, className = "" }: Props) {
   const [nyDate, setNyDate] = useState<string>("");
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function HeroSplit({ left, right, className = "" }: Props) {
       </div>
 
       {/* Studio description below images */}
-      <div className="mt-5 space-y-2">
+      <div className="mt-12 mb-12 md:mt-16 md:mb-16 lg:mt-20 lg:mb-20 space-y-2">
         <h2 className="font-extrabold text-white text-lg tracking-wide">
           ALEXANDER MAY STUDIO
         </h2>
@@ -65,18 +66,31 @@ export default function HeroSplit({ left, right, className = "" }: Props) {
         </p>
       </div>
 
-      {/* Hero-3 image below description */}
-      <div className="mt-4 w-full">
-        <div className="relative w-full aspect-[16/9] overflow-hidden bg-neutral-900">
-          <Image
-            src="/images/hero/hero-3.png"
-            alt="Alexander May Studio Work"
-            fill
-            className="object-cover transition-all duration-300 ease-out brightness-[0.4] opacity-60 hover:brightness-100 hover:opacity-100"
-            sizes="100vw"
-          />
+      {/* Bottom hero image with title and link */}
+      {bottom && (
+        <div className="w-full">
+          <Link
+            href={bottom.href}
+            className="group relative block outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            <div className="relative w-full aspect-[16/9] overflow-hidden bg-neutral-900">
+              <Image
+                src={bottom.src}
+                alt={bottom.alt}
+                fill
+                className="object-cover transition-all duration-300 ease-out brightness-[0.4] opacity-60 group-hover:brightness-100 group-hover:opacity-100 group-focus-visible:brightness-100 group-focus-visible:opacity-100"
+                sizes="100vw"
+              />
+            </div>
+            {/* bottom-left label */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-6 px-6">
+              <span className="inline-block bg-transparent text-[11px] font-semibold uppercase tracking-widest text-neutral-200 transition-colors duration-200 group-hover:text-white group-focus-visible:text-white">
+                {bottom.label}
+              </span>
+            </div>
+          </Link>
         </div>
-      </div>
+      )}
     </section>
   );
 }

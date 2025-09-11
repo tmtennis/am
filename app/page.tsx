@@ -3,16 +3,22 @@ import HeroSplit from '@/components/HeroSplit';
 export default function HomePage() {
   const heroItems = {
     left: {
-      href: '/work/nordic-knot',
+      href: '/work/nordic-knots',
       src: '/images/hero/hero-1.png',
-      alt: 'Nordic Knot Project',
-      label: 'NORDIC KNOT'
+      alt: 'Nordic Knots Project',
+      label: 'NORDIC KNOTS'
     },
     right: {
-      href: '/work/meridian-gallery',
+      href: '/work/studioette',
       src: '/images/hero/hero-2.png',
-      alt: 'Meridian Gallery Project',
-      label: 'PIERRE AUGUSTINUS ROSE'
+      alt: 'Studioette Project',
+      label: 'STUDIOETTE'
+    },
+    bottom: {
+      href: '/work/usm-haller',
+      src: '/images/hero/hero-3.png',
+      alt: 'USM Haller Project',
+      label: 'USM HALLER'
     }
   };
 
@@ -21,6 +27,7 @@ export default function HomePage() {
       <HeroSplit 
         left={heroItems.left}
         right={heroItems.right}
+        bottom={heroItems.bottom}
       />
     </div>
   );
