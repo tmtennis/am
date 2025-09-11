@@ -82,9 +82,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         />
       </div>
 
+      {/* Project Title */}
+      <Container>
+        <div className="py-8 md:py-12">
+          <h1 className="text-white font-black text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight">
+            {project.client}
+          </h1>
+        </div>
+      </Container>
+
       {/* Gallery Section - Full Width */}
       {galleryImages.length > 0 && (
-        <div className="bg-black space-y-4 py-16 md:py-24">
+        <div className="bg-black space-y-0.5">
           {galleryImages.length === 1 && (
             <Image
               src={`/images/work/gallery-folders/${slug}/${galleryImages[0]}`}
@@ -97,7 +106,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           )}
 
           {galleryImages.length === 2 && (
-            <div className="space-y-4">
+            <div className="space-y-0.5">
               <Image
                 src={`/images/work/gallery-folders/${slug}/${galleryImages[0]}`}
                 alt={`${project.client} 1`}
@@ -118,7 +127,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           )}
 
           {galleryImages.length >= 3 && (
-            <div className="space-y-4">
+            <div className="space-y-0.5">
               {galleryImages.map((imageName, index) => (
                 <Image
                   key={index}
