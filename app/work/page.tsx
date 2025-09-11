@@ -75,7 +75,7 @@ export default function WorkPage() {
           className="work-section group block h-screen w-full"
           data-index={index}
         >
-          <div className="relative h-full w-full overflow-hidden bg-neutral-100">
+          <div className="relative h-full w-full overflow-hidden bg-black">
             <Image
               src={project.image}
               alt={project.client}

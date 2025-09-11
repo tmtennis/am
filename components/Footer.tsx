@@ -10,7 +10,7 @@ const navigation = [
 export default function Footer() {
   return (
     <footer className="py-1 mt-16">
-      <div className="pl-4">
+      <div className="pl-4 md:pl-8 lg:pl-12">
         <div className="space-y-0">
           {navigation.map((item) => (
             <Link key={item.name} href={item.href} className="block font-extrabold text-white text-lg transition-colors duration-150 hover:text-neutral-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white leading-tight">

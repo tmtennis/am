@@ -63,7 +63,7 @@ function HeroTile({ href, src, alt, label, side }: Item & { side?: "left" | "rig
         isFullWidth ? "w-full" : `h-full ${side === "left" ? "md:border-r md:border-neutral-800" : ""}`
       }`}
     >
-      <div className={`relative w-full overflow-hidden bg-neutral-900 ${isFullWidth ? "aspect-[16/9]" : "h-full"}`}>
+      <div className={`relative w-full overflow-hidden bg-black ${isFullWidth ? "aspect-[16/9]" : "h-full"}`}>
         <Image
           src={src}
           alt={alt}

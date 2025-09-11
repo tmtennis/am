@@ -78,65 +78,6 @@ export default function StudioPage() {
 
         {/* Core information */}
         <div className="space-y-16 md:space-y-20 mb-20 md:mb-24">
-          {/* Practices */}
-          <motion.section 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            <motion.h2 
-              className="text-lg font-extrabold mb-6 text-neutral-300"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              viewport={{ once: true }}
-            >
-              THREE CORE PRACTICES
-            </motion.h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-              <motion.div 
-                className="space-y-3"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-              >
-                <h3 className="font-extrabold text-white">Creative Direction</h3>
-                <p className="text-sm text-neutral-400 leading-relaxed">
-                  Establishes the conceptual and visual framework of a project, defining its identity with precision and restraint.
-                </p>
-              </motion.div>
-              
-              <motion.div 
-                className="space-y-3"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-              >
-                <h3 className="font-extrabold text-white">Spatial Design</h3>
-                <p className="text-sm text-neutral-400 leading-relaxed">
-                  Translates frameworks into built form, where proportion, material, and light are orchestrated to create environments of clarity.
-                </p>
-              </motion.div>
-              
-              <motion.div 
-                className="space-y-3"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-              >
-                <h3 className="font-extrabold text-white">Curation</h3>
-                <p className="text-sm text-neutral-400 leading-relaxed">
-                  Extends principles into the selection and arrangement of objects, artworks, and ideas within contexts that reveal significance.
-                </p>
-              </motion.div>
-            </div>
-          </motion.section>
-
           {/* Clients */}
           <motion.section 
             initial={{ opacity: 0, y: 30 }}
@@ -220,7 +161,7 @@ export default function StudioPage() {
                   {yearGroup.entries.map((entry, index) => (
                     <motion.div 
                       key={index} 
-                      className="flex flex-col md:grid md:grid-cols-12 md:gap-4 gap-1 cursor-pointer group p-3 -m-3 rounded-lg transition-colors duration-300 hover:bg-neutral-900/30"
+                      className="flex flex-col md:grid md:grid-cols-12 md:gap-4 gap-1 cursor-pointer group p-3 -m-3 rounded-lg transition-colors duration-300 hover:bg-black/30"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ 

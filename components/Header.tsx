@@ -34,8 +34,7 @@ export default function Header() {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 border-b border-neutral-700 h-16 transition-transform duration-300 ease-in-out ${isVisible ? 'translate-y-0' : '-translate-y-full'}`} 
-      style={{ backgroundColor: '#1a1919' }}
+      className={`fixed top-0 left-0 right-0 z-50 border-b border-neutral-700 h-16 transition-transform duration-300 ease-in-out bg-black ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
     >
       <div className="relative h-16">
         <Link href="/" className="absolute left-4 top-1/2 -translate-y-1/2 font-extrabold text-white text-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white z-10">
@@ -56,7 +55,7 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden md:block font-extrabold text-white text-sm">SIZED</div>
+          <Link href="/sized" className="hidden md:block font-extrabold text-white text-sm hover:text-neutral-300 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">SIZED</Link>
 
           <button
             type="button"
@@ -73,8 +72,7 @@ export default function Header() {
       </div>
 
       <div
-        className={`md:hidden absolute left-0 right-0 top-16 backdrop-blur-sm transition-all duration-300 ease-in-out ${mobileMenuOpen && isVisible ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'}`}
-        style={{ backgroundColor: 'rgba(26, 25, 25, 0.95)' }}
+        className={`md:hidden absolute left-0 right-0 top-16 backdrop-blur-sm transition-all duration-300 ease-in-out bg-black/95 ${mobileMenuOpen && isVisible ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'}`}
       >
         <nav id="mobile-menu" className="border-t border-neutral-700">
           <div className="px-4 py-6 space-y-4">
@@ -91,7 +89,7 @@ export default function Header() {
               </Link>
             ))}
             <div className="pt-4 mt-4 border-t border-neutral-700">
-              <div className="font-extrabold text-white text-sm tracking-wider">SIZED</div>
+              <Link href="/sized" className="block font-extrabold text-white text-sm tracking-wider hover:text-neutral-300 transition-colors duration-200" onClick={() => setMobileMenuOpen(false)}>SIZED</Link>
             </div>
           </div>
         </nav>

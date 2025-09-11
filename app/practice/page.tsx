@@ -58,7 +58,7 @@ export default function PracticePage() {
                       <span className="text-xs font-mono text-neutral-500 tracking-wider">
                         {practice.number}
                       </span>
-                      <div className="flex-1 h-px bg-neutral-800"></div>
+                      <div className="flex-1 h-px bg-neutral-600"></div>
                     </div>
                     <h2 className="text-2xl font-extrabold mb-2 group-hover:text-neutral-200 transition-colors duration-300">
                       {practice.title}
