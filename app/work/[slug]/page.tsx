@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {/* Project Title */}
       <Container>
         <div className="py-8 md:py-12">
-          <h1 className="text-white font-black text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight">
+          <h1 className="text-white font-black text-lg md:text-xl uppercase tracking-tight">
             {project.client}
           </h1>
         </div>
